@@ -36,8 +36,8 @@ equality lookups), `status` is low-cardinality and weighted so roughly 60% of do
 
 ## Prerequisites
 
-Compass is only a **GUI client** — it needs a running MongoDB **server**. This project runs
-one in Docker:
+Compass is only a **GUI client**, it needs a running MongoDB **server**. The quickest way to
+get one is Docker:
 
 ```bash
 docker run -d \
@@ -48,19 +48,12 @@ docker run -d \
   mongo:7
 ```
 
-The named volume keeps your data across restarts. Note the `127.0.0.1:` in the port mapping: it
-binds MongoDB to localhost only. This server has no authentication, so you really don't want it
-reachable from the network. Compass connects from the same machine, so nothing is lost. Any Docker setup works; this project was
-built with [Colima], which needs to be started after every reboot:
+The named volume keeps your data across restarts. The `127.0.0.1:` in the port mapping binds
+MongoDB to localhost only. This server has no authentication, so you don't want it reachable
+from the network.
 
-```bash
-colima start                    # start the VM
-docker start mongo-playground   # only needed if the container isn't already up
-```
-
-Useful checks: `docker ps` and `colima status`.
-
-Then point Compass at `mongodb://localhost:27017`.
+Any Docker runtime works (Docker Desktop, Colima, and so on). Once the container is up, check it
+with `docker ps` and point Compass at `mongodb://localhost:27017`.
 
 ## Setup
 
@@ -85,18 +78,12 @@ cd scripts
 > (it guarantees a clean, reproducible starting point), but don't run it if you have index
 > experiments in progress that you want to keep.
 
-You can pass a custom document count, though the article's numbers assume the default:
-
-```bash
-../.venv/bin/python seed.py 200000
-```
-
 After seeding, `users` has only the default `_id` index. That's the starting point for every
 example.
 
 ## Reproduce the examples
 
-The examples in the article are done by hand in Compass, which is the whole point — you get to
+The examples in the article are done by hand in Compass, which is the whole point: you get to
 watch the plan change:
 
 1. Open **playground → users** in Compass.
@@ -112,12 +99,7 @@ what you expect.
 
 ## Configuration
 
-Both scripts read these environment variables:
-
-```bash
-export MONGODB_URI="mongodb://localhost:27017"
-export MONGODB_DB="playground"
-```
+The scripts default to `mongodb://localhost:27017` and the `playground` database. Override them
+with the `MONGODB_URI` and `MONGODB_DB` environment variables if you need to.
 
 [pymongo]: https://pymongo.readthedocs.io/
-[Colima]: https://github.com/abiosoft/colima
