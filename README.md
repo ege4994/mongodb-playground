@@ -3,10 +3,9 @@
 A small Python + [pymongo] playground for experimenting with MongoDB indexes and reading
 `explain()` output in **MongoDB Compass**.
 
-This is the sample project behind the article
-[*Your MongoDB Index Might Be Doing Nothing. Here's How to Tell*](https://medium.com/p/250d37fd0240).
-Seed the data below and you can reproduce every example from it on your own machine, with the
-same numbers.
+This is the sample project behind my series of Medium articles on MongoDB indexes. Seed the
+data below and you can reproduce every example from them on your own machine, with the same
+numbers.
 
 ## What you get
 
